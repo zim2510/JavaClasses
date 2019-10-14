@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class cMath{
     private static final int MAX = 10000000;
@@ -63,4 +64,28 @@ public class cMath{
         if(!phiCalc) phisiv();
         return phi[n];
     }
+
+    static private boolean ncrinit = false;
+    static private long [][] ncr = new long [1005][1005];
+
+    private static long nCrCalc(int n, int r, int MOD)
+    {
+
+        if(ncr[n][r]!=-1) return ncr[n][r];
+        if(n==r || r==0) return 1;
+        return ncr[n][r] = ((nCrCalc(n-1, r, MOD) + nCrCalc(n-1, r-1, MOD)))%MOD;
+    }
+
+    public static long nCr(int n, int r, int MOD){
+        if(!ncrinit){
+            for(long[] x: ncr){
+                Arrays.fill(x, -1);
+            }
+
+            ncrinit = true;
+            System.out.println("Happened\n");
+        }
+        return nCrCalc(n, r, MOD);
+    }
+
 }
