@@ -3,15 +3,14 @@ import java.util.Arrays;
 
 public class cMath{
     private static final int MAX = 10000000;
+
+    private static boolean sivInit = false;
     private static boolean [] prime = new boolean[MAX/2];
-    private static int [] phi = new int[MAX];
     private static int [] nprime = new int[664579];
-    private static boolean primeCalc = false;
-    private static boolean phiCalc = false;
 
     public static void siv()
     {
-        primeCalc = true;
+        sivInit = true;
         for(int i = 3; i*i<MAX; i+=2){
             if(!prime[i/2]) for(int x = i * i; x<MAX; x += 2 * i){
                 prime[x/2] = true;
@@ -26,14 +25,14 @@ public class cMath{
 
     public static boolean isPrime(int n)
     {
-        if(!primeCalc) siv();
+        if(!sivInit) siv();
         return (n==2 || (n>2 && n%2==1 && prime[n/2]==false));
     }
 
     public static ArrayList<Integer> factorize(int n)
     {
         ArrayList<Integer> factorized = new ArrayList<Integer>();
-        if(!primeCalc) siv();
+        if(!sivInit) siv();
         for(int i = 0; nprime[i]*nprime[i]<=n; i++){
             while(n%nprime[i]==0){
                 factorized.add(nprime[i]);
@@ -45,9 +44,12 @@ public class cMath{
 
     }
 
-    public static void phisiv()
+    private static boolean phiInit = false;
+    private static int [] phi = new int[MAX];
+
+    private static void phisiv()
     {
-        phiCalc = true;
+        phiInit = true;
         phi[0] = 1;
         for(int i = 1; i<MAX; i++) phi[i] = i;
         for(int i = 2; i<MAX; i++){
@@ -61,11 +63,11 @@ public class cMath{
 
     public static int ephi(int n)
     {
-        if(!phiCalc) phisiv();
+        if(!phiInit) phisiv();
         return phi[n];
     }
 
-    static private boolean ncrinit = false;
+    static private boolean ncrInit = false;
     static private long [][] ncr = new long [1005][1005];
 
     private static long nCrCalc(int n, int r, int MOD)
@@ -77,15 +79,14 @@ public class cMath{
     }
 
     public static long nCr(int n, int r, int MOD){
-        if(!ncrinit){
+        if(!ncrInit){
             for(long[] x: ncr){
                 Arrays.fill(x, -1);
             }
 
-            ncrinit = true;
+            ncrInit = true;
             System.out.println("Happened\n");
         }
         return nCrCalc(n, r, MOD);
     }
-
 }
