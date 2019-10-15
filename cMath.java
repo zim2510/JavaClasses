@@ -8,7 +8,7 @@ public class cMath{
     private static boolean [] prime = new boolean[MAX/2];
     private static int [] nprime = new int[664579];
 
-    public static void siv()
+    private static void siv()
     {
         sivInit = true;
         for(int i = 3; i*i<MAX; i+=2){
@@ -31,7 +31,7 @@ public class cMath{
 
     public static ArrayList<Integer> factorize(int n)
     {
-        ArrayList<Integer> factorized = new ArrayList<Integer>();
+        ArrayList<Integer> factorized = new ArrayList();
         if(!sivInit) siv();
         for(int i = 0; nprime[i]*nprime[i]<=n; i++){
             while(n%nprime[i]==0){
@@ -67,8 +67,8 @@ public class cMath{
         return phi[n];
     }
 
-    static private boolean ncrInit = false;
-    static private long [][] ncr = new long [1005][1005];
+    private static boolean ncrInit = false;
+    private static long [][] ncr = new long [1005][1005];
 
     private static long nCrCalc(int n, int r, int MOD)
     {
@@ -85,7 +85,6 @@ public class cMath{
             }
 
             ncrInit = true;
-            System.out.println("Happened\n");
         }
         return nCrCalc(n, r, MOD);
     }
