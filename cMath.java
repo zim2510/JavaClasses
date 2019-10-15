@@ -88,4 +88,26 @@ public class cMath{
         }
         return nCrCalc(n, r, MOD);
     }
+
+    private static boolean nprInit = false;
+    private static long [][] npr = new long [1005][1005];
+
+    private static long nPrCalc(int n, int r, int MOD)
+    {
+
+        if(npr[n][r]!=-1) return npr[n][r];
+        if(n==0 || r==0) return 1;
+        return npr[n][r] = ((n*(nPrCalc(n-1, r-1, MOD))))%MOD;
+    }
+
+    public static long nPr(int n, int r, int MOD){
+        if(!nprInit){
+            for(long[] x: npr){
+                Arrays.fill(x, -1);
+            }
+
+            nprInit = true;
+        }
+        return nPrCalc(n, r, MOD);
+    }
 }
